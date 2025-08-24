@@ -11,12 +11,13 @@ let kFirstName = "key first name"
 let kLastName = "key last name"
 let kEmail = "key email"
 let kIsLoggedIn = "key is logged in"
+let kName = "key name"
 
 struct Onboarding: View {
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
     @State private var email: String = ""
     @State private var isLoggedIn: Bool = false
+    @State private var name: String = ""
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -59,14 +60,14 @@ struct Onboarding: View {
                 .background(
                     Color(red: 75 / 255, green: 90 / 255, blue: 82 / 255)
                 )
-
-                TextField("First Name", text: $firstName)
-                TextField("Last Name", text: $lastName)
+                Text("Name *").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.gray)
+                TextField("Name", text: $name)
+                Text("Email *").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.gray)
                 TextField("Email", text: $email)
 
                 Spacer()
                 Button("Register") {
-                    if firstName.isEmpty || lastName.isEmpty || email.isEmpty {
+                    if name.isEmpty || email.isEmpty {
                         print("register failed")
                         return
                     }
@@ -75,8 +76,7 @@ struct Onboarding: View {
                         return
                     }
                     isLoggedIn = true
-                    UserDefaults.standard.set(firstName, forKey: kFirstName)
-                    UserDefaults.standard.set(lastName, forKey: kLastName)
+                    UserDefaults.standard.set(name, forKey: kName)
                     UserDefaults.standard.set(email, forKey: kEmail)
                     UserDefaults.standard.set(true, forKey: kIsLoggedIn)
                 }
